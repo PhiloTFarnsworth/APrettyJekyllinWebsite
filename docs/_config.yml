@@ -29,7 +29,7 @@ LinkedIn_url: www.linkedin.com/in/michael-gardner-az
 github_username:  PhiloTFarnsworth
 
 # Build settings
-theme: minima
+theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
 
