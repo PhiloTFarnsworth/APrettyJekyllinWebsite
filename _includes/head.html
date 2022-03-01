@@ -3,24 +3,23 @@
 <head>
 	<meta charset="UTF-8">
 	<!--SEO STUFF-->
-	<meta name="description" content="A Pretty Heckin' Website">
-	<meta name="keywords" content="Website, Heckin, Web Development">
-	<meta name="author" content="Michael Gardner">
+	<meta name="description" content="{{site.description}}">
+	<meta name="keywords" content="{{site.keywords}}">
+	<meta name="author" content="{{site.author}}">
 	<!--SEO STUFF END-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--Favicon STUFF-->
-	<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-	<link rel="manifest" href="assets/favicon/site.webmanifest">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ site.url }}{{ site.baseurl }}/assets/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="{{ site.url }}{{ site.baseurl }}/assets/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="{{ site.url }}{{ site.baseurl }}/assets/favicon/favicon-16x16.png">
+	<link rel="manifest" href="{{ site.url }}{{ site.baseurl }}/assets/favicon/site.webmanifest">
 	<!--Favicon STUFF END-->
 	<!--Font STUFF-->
-	<link rel="preload" as="font" href="assets/style/fonts/LEMONMILK-Light.woff2" crossorigin>
-	<link rel="preload" as="font" href="assets/style/fonts/LEMONMILK-LightItalic.woff2" crossorigin>
-	<link rel="preload" as="font" href="assets/style/fonts/LEMONMILK-Regular.woff2" crossorigin>
-	<link rel="preload" as="font" href="assets/style/fonts/LEMONMILK-RegularItalic.woff2" crossorigin>
+	{%- for font in site.fonts -%}
+		<link rel="preload" as="font" href="{{ site.url }}{{ site.baseurl }}/assets/style/fonts/{{font}}" crossorigin>
+	{%- endfor -%}
 	<!--Font STUFF END-->
 	<link rel="canonical" href="{{ site.url }}{{ site.baseurl }}" />
-	<link rel="stylesheet" href="assets/style/style.css">
+	<link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/assets/style/style.css">
 	<title>{{site.title}}</title>
 </head>

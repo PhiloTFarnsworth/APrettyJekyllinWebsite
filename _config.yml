@@ -18,20 +18,43 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
+
 title: A Pretty Jekyllin' Website
+author: Michael Gardner
+year: 2022
 email: Idodevthings@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
+description: >- 
   A Pretty Heckin' Website using Github Pages and Jekyll
+keywords: Website, Heckin, Web Development, Jekyll
 domain: philotfarnsworth.github.io
 url: https://philotfarnsworth.github.io # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: /Jekyll-Test # the subpath of your site, e.g. /blog
 LinkedIn_url: www.linkedin.com/in/michael-gardner-az 
 github_username:  PhiloTFarnsworth
 
+## This tidies up the header a little, but it would be nice to integrate this with our css imports as well, so we only have to
+## define fonts in one area.  For now, we'll just pass the file name.
+fonts:
+  - "LEMONMILK-Light.woff2"
+  - "LEMONMILK-LightItalic.woff2"
+  - "LEMONMILK-Regular.woff2"
+  - "LEMONMILK-RegularItalic.woff2"
+
+## Needed to be fancy and use a custom collection
+include: ['_diatribes']
+collections:
+  diatribes:
+    output: true
+    permalink: /:path
+
+legal: >-
+  This site is for educational purposes only. All images, videos and quotes are not the property of the site
+  owner and used with a very tenuous grasp of Fair Use.
+
 # Build settings
 # theme: jekyll-theme-hacker
-plugins:
-  - jekyll-feed
+# plugins:
+#   - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
