@@ -4,18 +4,9 @@
     {%- include head.html -%}
 
 <body>
-    <script src='{{ site.url }}{{ site.baseurl }}/assets/scripts/main.js'></script>
+    <!--<script src='{{ site.url }}{{ site.baseurl }}/assets/scripts/main.js'></script>-->
     {%- include header.html -%}
 	<main>
-
-          {%- for section in site.diatribes -%}
-          
-              <a href="{{ site.url }}{{ site.baseurl }}{{ section.url }}">
-                {{ section.url }}
-              </a>
-              {%- else-%}
-              doh
-          {%- endfor -%}
         {{content}}
 	</main>
 	{%- include footer.html -%}
