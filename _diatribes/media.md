@@ -11,6 +11,8 @@ quote:
 image:
     name: "working"
     caption: "Needed a wide picture here"
+forward: "satire.html"
+behind: "form.html"
 ---
 
 {% include quote.html %}

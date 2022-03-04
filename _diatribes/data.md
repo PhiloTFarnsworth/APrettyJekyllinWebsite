@@ -4,6 +4,8 @@ header: "Data Organization"
 aside:
     header: "Styling"
     content: "These elements are also ideal places to add some color."
+forward: "tables.html"
+behind: "section.html"
 ---
 
 <div>

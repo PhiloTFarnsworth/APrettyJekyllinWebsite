@@ -6,6 +6,8 @@ aside:
     content: "Get ready to be schooled"
     image: "dunce"
     caption: "Armored man dons a pointy dunce cap."
+forward: "section.html"
+behind: "contents.html"
 ---
 
 <div>

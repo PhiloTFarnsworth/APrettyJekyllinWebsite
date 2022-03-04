@@ -1,6 +1,7 @@
 ---
 layout: diatribe
 header: "Epilogue"
+behind: "satire.html"
 ---
 
 Inspired by the brilliant pages [The Best M&!@#F$%^&@! Website](https://thebestmotherfucking.website/), 

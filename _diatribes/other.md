@@ -4,6 +4,8 @@ header: "Other Informational Widgets"
 aside:
     header: "Internet Explorer"
     content: "It still exists."
+forward: "form.html"
+behind: "lists.html"
 ---
 
 <div>

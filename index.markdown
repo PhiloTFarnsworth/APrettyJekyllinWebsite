@@ -1,18 +1,29 @@
 ---
-layout: default
-header: "Contents"
+layout: diatribe
+header: "Foreword"
+aside:
+    header: "Some Heckin' Real Talk"
+    content: "A Pretty Heckin' Website was one big document.  We'll use to Jekyll to serve the same content, but in digestible pieces."
+forward: "contents.html"
 ---
 
-- [Why Another Heckin' Website?]({{site.url}}{{site.baseurl}}/why.html)
-    1. [Section Headings]({{site.url}}{{site.baseurl}}/section.html)
-    2. [Data Widgets]({{site.url}}{{site.baseurl}}/data.html)
-        - [Tables]({{site.url}}{{site.baseurl}}/tables.html)
-        - [Lists]({{site.url}}{{site.baseurl}}/lists.html)
-        - [Others]({{site.url}}{{site.baseurl}}/other.html)
-            1. [Details]({{site.url}}{{site.baseurl}}/other.html#detailHead)
-            2. [Meter]({{site.url}}{{site.baseurl}}/other.html#meterHead)
-            3. [Progress]({{site.url}}{{site.baseurl}}/other.html#progressHead)
-        - [Forms]({{site.url}}{{site.baseurl}}/form.html)
-        - [Media and more]({{site.url}}{{site.baseurl}}/media.html)
-    3. [Satire Warning]({{site.url}}{{site.baseurl}}/satire.html)
-    4. [Epilogue]({{site.url}}{{site.baseurl}}/epilogue.html)
+A Pretty Jekyllin' website is a proving ground for some basic [Jekyll](https://jekyllrb.com) framework customization for use with [Github Pages](https://docs.github.com/en/pages).  While the basic templates encourage usage for websites like blogs, I though it would be an interesting to build a template that would work like a book or manual.  
+
+See the original [Pretty Heckin' Website](https://philotfarnsworth.github.io/APrettyHeckinWebsite/)
+
+<div>
+    <p>
+    As a brief note, I will menton that I don't necessarily think the is the most efficient method of implementing a manual.  I feel it could be more beneficial to just fetch the sections using javascript and then render them within a single document.  This would avoid users having to re-acquire resources, which unfortunately due to the base settings of Github Pages, we cannot use cache control headers to mitigate.  That being said, the conveniences offered by Jekyll, such as easily building pages using mostly markdown instead of HTML, do make this method viable for building such a site.
+    </p>
+
+    {% include aside.html %}
+</div>
+
+To begin, click the next button on the bottom left of the page.
+
+<p class="disclaimer">
+    Disclaimer: This is not an authoritative source on HyperText Markup Language,
+    <abbr>HTML</abbr>, Cascading Style Sheets, <abbr>CSS</abbr> or Javascript, <abbr>JS</abbr>.
+    I suggest <a href="https://developer.mozilla.org/">Mozilla Web Docs</a> for web technology documentation.
+    Please excuse any intentional attempts at comedy.
+</p>

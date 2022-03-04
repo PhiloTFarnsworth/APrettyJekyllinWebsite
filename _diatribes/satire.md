@@ -1,6 +1,8 @@
 ---
 layout: diatribe
 header: "Pretty Heckin' Website is not a satire"
+forward: "epilogue.html"
+behind: "media.html"
 ---
 
 Every website should look like this, and any which do not conform should be removed from the internet

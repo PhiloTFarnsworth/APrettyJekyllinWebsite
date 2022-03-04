@@ -1,6 +1,8 @@
 ---
 layout: diatribe
 header: "Tables"
+forward: "lists.html"
+behind: "data.html"
 ---
 
 For instance, let's say you want to measure this website against some other well respected peers? A table can

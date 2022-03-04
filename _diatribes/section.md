@@ -4,6 +4,8 @@ header: "Section Headings: A Modest Proposal"
 aside:
     header: "Headings Tip"
     content: "Keep them short, Wordsworth."
+forward: "data.html"
+behind: "why.html"
 ---
 
 <div>

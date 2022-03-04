@@ -44,9 +44,20 @@ fonts:
 include: ['_diatribes']
 collections:
   diatribes:
+    order: 
+      - contents.md
+      - why.md
+      - section.md
+      - data.md
+      - tables.md
+      - lists.md
+      - other.md
+      - form.md
+      - media.md
+      - satire.md
+      - epilogue.md
     output: true
     permalink: /:path
-
 legal: >-
   This site is for educational purposes only. All images, videos and quotes are not the property of the site
   owner and used with a very tenuous grasp of Fair Use.

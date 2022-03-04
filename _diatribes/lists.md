@@ -4,6 +4,8 @@ header: "Lists"
 aside:
     header: "Numbered Lists"
     content: "What? Are you writing a table of contents"
+forward: "other.html"
+behind: "tables.html"
 ---
 
 <div>

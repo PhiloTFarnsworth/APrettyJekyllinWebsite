@@ -4,6 +4,8 @@ header: "Forms are Fundamental"
 aside:
     header: "Warning"
     content: "Javascript can allow you to make pseudo form elements. Resist the temptation."
+forward: "media.html"
+behind: "other.html"
 ---
 
 <div>
