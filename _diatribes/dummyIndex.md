@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: diatribe
 header: "Foreword"
 aside:
     header: "Some Heckin' Real Talk"

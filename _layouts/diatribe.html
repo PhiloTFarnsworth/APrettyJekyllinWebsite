@@ -1,10 +1,13 @@
----
+<!-- ---
 layout: default
----
+--- -->
 
 <section>
     <h2>{{page.header}}</h2>
     {{content}}
+    <div aria-hidden="true" hidden>
+        <a id="newBehind" href="{{site.url}}{{site.baseurl}}/{{page.behind}}"></a><a id="newForward" href="{{site.url}}{{site.baseurl}}/{{page.forward}}"></a>
+    </div>
 </section>
 
 <!-- a diatribe is what we're going to call the general content under a section header from a pretty heckin' website.  -->

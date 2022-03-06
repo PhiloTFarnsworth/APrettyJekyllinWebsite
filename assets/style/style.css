@@ -39,6 +39,13 @@ body {
   flex-direction: column;
 }
 
+nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0rem;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
 header {
   font-size: large;
   font-style: bold;
@@ -73,9 +80,19 @@ footer {
   margin-bottom: 2rem;
   border-radius: 0px 0px 20px 20px;
   border-top: none;
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
 }
 footer p {
   text-align: center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 div {
@@ -304,9 +321,9 @@ button {
 }
 
 button:hover {
-  animation: 1s ease-in 0s both hover-u67yfch;
+  animation: 1s ease-in 0s both hover-ulgcxz9;
 }
-@keyframes hover-u67yfch {
+@keyframes hover-ulgcxz9 {
   to {
     background-color: rgba(218, 209, 180, 0.5);
   }
@@ -326,9 +343,9 @@ input:hover,
 select:hover,
 input:focus,
 select:focus {
-  animation: 1s ease-in 0s both hover-u67yfcs;
+  animation: 1s ease-in 0s both hover-ulgcxzt;
 }
-@keyframes hover-u67yfcs {
+@keyframes hover-ulgcxzt {
   to {
     background-color: #eeeeee;
   }

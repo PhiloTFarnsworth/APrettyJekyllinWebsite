@@ -1,7 +1,7 @@
 <aside>
     <h3>{{ page.aside.header }}</h3>
     {%- if page.aside.image -%}
-        {% include image.html image=page.aside.image caption=page.aside.caption %}
+        {% include image.html image=page.aside.image alt=page.aside.alt %}
     {%- endif -%}
     <p>{{ page.aside.content }}</p>
 </aside>

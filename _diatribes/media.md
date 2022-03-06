@@ -10,6 +10,7 @@ quote:
     cite: "Seeking the One Armed Man (1963)"
 image:
     name: "working"
+    alt: "Web developer working diligently"
     caption: "Needed a wide picture here"
 forward: "satire.html"
 behind: "form.html"
@@ -26,12 +27,11 @@ video.
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     loading="lazy" allowfullscreen></iframe>
 
+
 A lot of the same advice goes for images, with an added emphasis on size. Most modern browsers support
 internet optimized image formats like <abbr>webp</abbr> and <abbr>avif</abbr>, which can be
 substantially smaller than conventional formats.
 
-
-{% include image.html image=page.image.name caption=page.image.caption %}
 <div>
     {% include aside.html %}
     <p>
@@ -40,3 +40,5 @@ substantially smaller than conventional formats.
         exist within the <abbr>HTML</abbr> spec.
     </p>
 </div>
+
+{% include image.html image=page.image.name alt=page.image.alt caption=page.image.caption %}

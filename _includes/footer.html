@@ -1,38 +1,6 @@
 <footer>
-    {% if page.forward and page.behind %}
-        <div>
-            <a href="{{site.url}}{{site.baseurl}}/{{page.behind}}">Previous</a>
-            <a href="{{site.url}}{{site.baseurl}}/{{page.forward}}">Next</a>
-        </div>
-    {% else %}
-        {% if page.forward %}
-        <div>
-            <div class="flexRows">
-                <p>{{site.legal}}</p>
-                <p>Copyright {{site.year}} {{site.author}}</p>
-                <address>
-                    <a href="mailto:{{site.email}}">{{site.email}}</a>
-                </address>
-            </div>
-            <a href="{{site.url}}{{site.baseurl}}/{{page.forward}}">Next</a>
-        </div>
-        {% else if page.behind %}
-        <div>
-            <a href="{{site.url}}{{site.baseurl}}/{{page.behind}}">Previous</a>
-            <div class="flexRows">
-                <p>{{site.legal}}</p>
-                <p>Copyright {{site.year}} {{site.author}}</p>
-                <address>
-                    <a href="mailto:{{site.email}}">{{site.email}}</a>
-                </address>
-            </div>
-        </div>  
-        {% else %}  
-            <p>{{site.legal}}</p>
-            <p>Copyright {{site.year}} {{site.author}}</p>
-            <address>
-                <a href="mailto:{{site.email}}">{{site.email}}</a>
-            </address>
-        {% endif %}
-    {% endif%}
+    <div>
+        <a class="fancyBtn" id="behind" href="{{site.url}}{{site.baseurl}}/{{page.behind}}">Previous</a>
+        <a class="fancyBtn" id="forward" href="{{site.url}}{{site.baseurl}}/{{page.forward}}">Next</a>
+    </div>
 </footer>

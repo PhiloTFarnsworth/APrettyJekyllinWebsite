@@ -65,7 +65,6 @@ discretion.
                     <summary>2</summary>
                     <p>Excluding Youtube embed.</p>
                 </details>
-</table>
 
 <!-- 
     For the time being, we'll keep the regular html table format.  The colored boxes used 

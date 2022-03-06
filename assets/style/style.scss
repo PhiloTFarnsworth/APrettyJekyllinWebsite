@@ -106,6 +106,13 @@ footer {
     p {
         text-align: center;
     }
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+}
+
+section {
+    @include flexCol();
 }
 
 div {
