@@ -4,10 +4,7 @@ header: "Forms are Fundamental"
 aside:
     header: "Warning"
     content: "Javascript can allow you to make pseudo form elements. Resist the temptation."
-forward: "media.html"
-behind: "other.html"
 ---
-
 <div>
     <p>
         It's hard to think of a website that doesn't contain form. Even if your content is a canon of

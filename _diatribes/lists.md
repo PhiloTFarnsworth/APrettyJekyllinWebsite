@@ -39,7 +39,7 @@ paragraphs.
     * Comprehensive
         * features most <abbr>HTML</abbr> tags
 * Judicious <abbr title="Javascript">JS</abbr>
-    * Adds non-core functionality
+    * Vanilla JS to power forms and navigation
 * Jovial [Jekyll](https://jekyllrb.com)
     * Markdown
         * Simpler content management

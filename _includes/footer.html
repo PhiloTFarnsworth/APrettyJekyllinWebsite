@@ -1,6 +1,8 @@
 <footer>
+    <p aria-atomic="true" aria-live="polite">page <span id="currentPage">0</span> of {{site.diatribes.size}}</p>
     <div>
-        <a class="fancyBtn" id="behind" href="{{site.url}}{{site.baseurl}}/{{page.behind}}">Previous</a>
-        <a class="fancyBtn" id="forward" href="{{site.url}}{{site.baseurl}}/{{page.forward}}">Next</a>
+        <button class="fancyBtn" id="behind" aria-disabled="true" disabled="true">Previous</button>
+        <button class="fancyBtn" id="forward">Next</button>
     </div>
+    <button class="fancyBtnBottom" id="about">About</button>
 </footer>

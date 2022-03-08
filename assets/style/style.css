@@ -39,13 +39,6 @@ body {
   flex-direction: column;
 }
 
-nav {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0rem;
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
 header {
   font-size: large;
   font-style: bold;
@@ -64,6 +57,7 @@ main {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 0.5rem 1rem;
   border: 4px solid #cea89b;
+  min-height: 65vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,13 +65,12 @@ main {
 }
 
 footer {
-  padding: 0.5rem 1rem;
   font-family: "LEMONMILK";
   font-weight: bold;
   background-color: rgba(255, 255, 255, 0.9);
   border: 4px solid #cec19b;
-  padding: 0.5rem 1rem;
   margin-bottom: 2rem;
+  padding: 0.5rem 0 0 0;
   border-radius: 0px 0px 20px 20px;
   border-top: none;
   position: sticky;
@@ -86,6 +79,10 @@ footer {
 }
 footer p {
   text-align: center;
+  margin: 0;
+}
+footer div {
+  padding: 0.5rem 0 0 0;
 }
 
 section {
@@ -321,12 +318,23 @@ button {
 }
 
 button:hover {
-  animation: 1s ease-in 0s both hover-ulgcxz9;
+  animation: 1s ease-in 0s both hover-uwsmj7g;
 }
-@keyframes hover-ulgcxz9 {
+@keyframes hover-uwsmj7g {
   to {
     background-color: rgba(218, 209, 180, 0.5);
   }
+}
+
+.fancyBtn {
+  flex: 1;
+  margin: 0;
+}
+
+.fancyBtnBottom {
+  border-radius: 0px 0px 20px 20px;
+  margin: 0;
+  width: 100%;
 }
 
 textarea {
@@ -343,9 +351,9 @@ input:hover,
 select:hover,
 input:focus,
 select:focus {
-  animation: 1s ease-in 0s both hover-ulgcxzt;
+  animation: 1s ease-in 0s both hover-uwsmj7t;
 }
-@keyframes hover-ulgcxzt {
+@keyframes hover-uwsmj7t {
   to {
     background-color: #eeeeee;
   }
