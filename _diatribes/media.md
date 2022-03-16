@@ -12,8 +12,6 @@ image:
     name: "working"
     alt: "Web developer working diligently"
     caption: "Needed a wide picture here"
-forward: "satire.html"
-behind: "form.html"
 ---
 
 {% include quote.html %}

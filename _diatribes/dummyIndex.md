@@ -4,7 +4,6 @@ header: "Foreword"
 aside:
     header: "Some Heckin' Real Talk"
     content: "A Pretty Heckin' Website was one big document.  We'll use to Jekyll to serve the same content, but in digestible pieces."
-forward: "contents.html"
 ---
 
 A Pretty Jekyllin' website is a proving ground for some basic [Jekyll](https://jekyllrb.com) framework customization for use with [Github Pages](https://docs.github.com/en/pages).  While the basic templates encourage usage for websites like blogs, I though it would be an interesting to build a template that would work like a book or manual.  

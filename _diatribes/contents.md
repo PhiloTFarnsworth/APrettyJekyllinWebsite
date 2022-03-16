@@ -1,8 +1,6 @@
 ---
 layout: diatribe
 header: "Contents"
-forward: "why.html"
-behind: "dummyIndex.html"
 ---
 
 - [Why Another Heckin' Website?]({{site.url}}{{site.baseurl}}/why.html)

@@ -27,8 +27,7 @@ so compatibility is a minor concern employing the details element.
 
 <h3 id="meterHead">Meter</h3>
 
-Meters can be used to represent gauges. For example, Lighthouse, an browser accessibility tool, <a
-        href="/lighthouse.html">grades this website</a>:
+Meters can be used to represent gauges. For example, Lighthouse, an browser accessibility tool, grades this website:
 
 #### Lighthouse Score
 
@@ -60,7 +59,7 @@ Meters can be used to represent gauges. For example, Lighthouse, an browser acce
     </div>
 </div>
 
-A Pretty Heckin' website also was <a href="/lighthouseMobile.html">graded highly</a> for mobile screens as well.
+A Pretty Jekyllin' website also was graded highly for mobile screens as well.
 
 <h3 id="progressHead">Progress</h3>
 

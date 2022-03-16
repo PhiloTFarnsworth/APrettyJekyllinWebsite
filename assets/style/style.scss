@@ -99,7 +99,6 @@ footer {
     font-weight: bold;
     background-color: rgba($color: #ffffff, $alpha: 0.9);
     border: 4px solid $Secondary;
-    margin-bottom: 2rem;
     padding: 0.5rem 0 0 0;
     border-radius: 0px 0px 20px 20px;
     border-top: none;
@@ -112,6 +111,15 @@ footer {
     }
     div {
         padding: .5rem 0 0 0;
+        button {
+            flex: 1;
+            margin: 0;
+        }
+    }
+    button {
+        border-radius: 0px 0px 20px 20px;
+        margin: 0;
+        width: 100%;
     }
 }
 
@@ -143,6 +151,8 @@ a:hover {
 }
 
 nav {
+    width: 100%;
+    padding: 1rem 4rem;
     a {
         font-size: large;
         font-style: "LEMONMILK";
@@ -155,6 +165,12 @@ nav {
     a:hover {
         color: $Primary;
         text-decoration: underline;
+    }
+    button {
+        width: 100%;
+        height: 1.5rem;
+        border-radius: 20px;
+        margin: 0.1rem;
     }
 }
 
@@ -327,6 +343,8 @@ select {
 button {
     margin: 1rem auto;
     height: 3rem;
+    border: 1px solid $Primary;
+    border-radius: 5px;
     background-color: $TertiaryBg;
     font-family: "LEMONMILK", sans-serif;
     font-weight: bold;
@@ -340,11 +358,7 @@ button:hover {
     flex: 1;
     margin: 0;
 }
-.fancyBtnBottom {
-    border-radius: 0px 0px 20px 20px;
-    margin: 0;
-    width: 100%;
-}
+
 
 textarea {
     margin: 1rem 1rem;

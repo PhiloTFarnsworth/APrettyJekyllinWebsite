@@ -73,11 +73,30 @@ function setFetchContent(selector, link) {
                             document.querySelector('#behind').disabled = true
                         }
                         setFetchContent('#forward', order[index + 1])
+                        
                         break;
                     default:
                         // will update when new directions are added
                         break;
                 }
+
+                const nav = document.querySelector('#siteNav')
+                Array.from(nav.children).forEach(child => {
+                    if (child.id !== 'toggleNav') {
+                        const url = child.id.replace('Nav', '.html')
+                        if (link === url) {
+                            //set button disabled and visible
+                            child.hidden = false
+                            child.setAttribute('aria-hidden', false)
+                            child.disabled = true
+                        } else {
+                            //set button hidden
+                            child.hidden = true
+                            child.setAttribute('aria-hidden', true)
+                            child.disabled = true
+                        }
+                    }
+                })
                 //Add our scroll checker if page progress exists
                 if (document.querySelector('#pageProgress')) {
                     scrollListener = document.addEventListener("scroll", () => {
@@ -121,6 +140,7 @@ function setFetchContent(selector, link) {
 
 document.addEventListener("DOMContentLoaded", () => {
     setFetchContent('#forward', 'contents.html')
+    populateNavLinks()
     document.querySelector('#about').onclick = () => {
         fetch("about.html", { method: "GET" })
             .then(response => response.text())
@@ -145,3 +165,106 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error(error))
     }
 })
+
+// Nav links need to:
+// - Display button links to each page
+// - Display the current page as a disabled button
+// - Collapse and expand.
+
+//How do?  Well, we start with all buttons defined in the HTML, but hidden.  On page initiation, we want to make visible/disable the home button,
+//as well as associate all buttons with their navigation link.  Navigation links can be parsed from button ids.
+function populateNavLinks() {
+    const nav = document.querySelector('#siteNav')
+    Array.from(nav.children).forEach(child => {
+        if (child.id === 'toggleNav') {
+            //For toggle nav, we want to swap the hidden and aria-hidden labels for all nav button on click, as well
+            //as change the nav's aria-expanded to true.
+            child.onclick = () => {
+                if (child.dataset.active === 'true') {
+                    // add offset to each item displayed
+                    let offset = 0
+                    Array.from(nav.children).forEach(kid => {
+                        if (kid.id !== 'toggleNav') {
+                            const url = kid.id.replace('Nav', '.html')
+                            offset = offset - 20
+                            if (url !== order[index]) {
+                                const doAnimation = async () => {
+                                    // Housekeeping
+                                    document.querySelector('#toggleNav').disabled = true
+                                    kid.disabled = true
+                                    const anim = kid.animate([
+                                        { hidden: "false", transform: 'translateY(0px)', height: '1.5rem', overflow: 'hidden', margin: '0.1rem' },
+                                        { opacity: .3, transform: 'translateY(' + (offset / 2).toString() + 'px)', height: '.25rem', overflow: 'hidden', margin: '0rem', padding: '0' },
+                                        { hidden: "true", opacity: 0, transform: 'translateY(' + offset.toString() + 'px)', height: '0.1rem', overflow: 'hidden', padding: '0' }
+                                    ], {
+                                        duration: 1000
+                                    })
+                                    await anim.finished
+                                    document.querySelector('#toggleNav').disabled = false
+                                    kid.disabled = true
+                                    kid.hidden = true
+                                    kid.setAttribute('aria-hidden', true)
+                                }
+                                doAnimation()
+                                    .catch(error => console.error(error))
+                            }
+                        }
+                    })
+                    child.dataset.active = false
+                    child.innerHTML = 'Expand Site Navigation'
+                    nav.setAttribute('aria-expanded', false)
+                } else {
+                    // if not active, show all buttons
+                    let offset = 0
+                    Array.from(nav.children).forEach(kid => {
+                        if (kid.id !== 'toggleNav') {
+                            const url = kid.id.replace('Nav', '.html')
+                            offset = offset - 20
+                            if (url !== order[index]) {
+                                const doAnimation = async () => {
+                                    document.querySelector('#toggleNav').disabled = true
+                                    kid.hidden = false
+                                    const anim = kid.animate([
+                                        { hidden: "true", opacity: 0, transform: 'translateY(' + offset.toString() + 'px)' },
+                                        { opacity: .5, transform: 'translateY(' + (offset / 2).toString() + 'px)' },
+                                        { hidden: "false", opacity: 1, transform: 'translateY(0px)' }
+                                    ], {
+                                        duration: 1000
+                                    })
+                                    await anim.finished
+                                    kid.disabled = false
+                                    kid.setAttribute('aria-hidden', false)
+                                    document.querySelector('#toggleNav').disabled = false
+                                }
+                                doAnimation()
+                                    .catch(error => console.error(error))
+                            }
+                        }
+                    })
+                    child.dataset.active = true
+                    child.innerHTML = 'Collapse Site Navigation'
+                    nav.setAttribute('aria-expanded', true)
+                }
+            }
+        } else {
+            // Ok, so for every child besides toggleNav, take the ID, slice the Nav off the end, and then graft '.html'
+            // to the end of it. Bind a fetch to that link and you're gravy
+            const url = child.id.replace("Nav", ".html")
+            child.onclick = () => {
+                fetch(url, { method: 'GET' })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('main').innerHTML = data
+                        index = order.findIndex((u) => u === url)
+                        //Re-enable the previous button pressed and disable this button
+                        Array.from(nav.children).forEach(kid => {
+                            kid.id !== 'toggleNav' ? kid.disabled = false : ''
+                        })
+                        child.disabled = true
+                        document.querySelector('#currentPage').innerHTML = index
+                    })
+                    .catch(error => console.error(error))
+            }
+        }
+    })
+}

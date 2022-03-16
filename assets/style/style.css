@@ -69,7 +69,6 @@ footer {
   font-weight: bold;
   background-color: rgba(255, 255, 255, 0.9);
   border: 4px solid #cec19b;
-  margin-bottom: 2rem;
   padding: 0.5rem 0 0 0;
   border-radius: 0px 0px 20px 20px;
   border-top: none;
@@ -83,6 +82,15 @@ footer p {
 }
 footer div {
   padding: 0.5rem 0 0 0;
+}
+footer div button {
+  flex: 1;
+  margin: 0;
+}
+footer button {
+  border-radius: 0px 0px 20px 20px;
+  margin: 0;
+  width: 100%;
 }
 
 section {
@@ -119,6 +127,10 @@ a:hover {
   color: #6d5f35;
 }
 
+nav {
+  width: 100%;
+  padding: 1rem 4rem;
+}
 nav a {
   font-size: large;
   font-style: "LEMONMILK";
@@ -131,6 +143,12 @@ nav a:visited {
 nav a:hover {
   color: #657884;
   text-decoration: underline;
+}
+nav button {
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 20px;
+  margin: 0.1rem;
 }
 
 h1,
@@ -312,15 +330,17 @@ select {
 button {
   margin: 1rem auto;
   height: 3rem;
+  border: 1px solid #657884;
+  border-radius: 5px;
   background-color: rgba(216, 185, 175, 0.7);
   font-family: "LEMONMILK", sans-serif;
   font-weight: bold;
 }
 
 button:hover {
-  animation: 1s ease-in 0s both hover-uwsmj7g;
+  animation: 1s ease-in 0s both hover-uolak2y;
 }
-@keyframes hover-uwsmj7g {
+@keyframes hover-uolak2y {
   to {
     background-color: rgba(218, 209, 180, 0.5);
   }
@@ -329,12 +349,6 @@ button:hover {
 .fancyBtn {
   flex: 1;
   margin: 0;
-}
-
-.fancyBtnBottom {
-  border-radius: 0px 0px 20px 20px;
-  margin: 0;
-  width: 100%;
 }
 
 textarea {
@@ -351,9 +365,9 @@ input:hover,
 select:hover,
 input:focus,
 select:focus {
-  animation: 1s ease-in 0s both hover-uwsmj7t;
+  animation: 1s ease-in 0s both hover-uolak3q;
 }
-@keyframes hover-uwsmj7t {
+@keyframes hover-uolak3q {
   to {
     background-color: #eeeeee;
   }
