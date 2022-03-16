@@ -28,7 +28,7 @@ description: >-
 keywords: Website, Heckin, Web Development, Jekyll
 domain: philotfarnsworth.github.io
 url: https://philotfarnsworth.github.io # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: /Jekyll-Test # the subpath of your site, e.g. /blog
+baseurl: /APrettyJekyllinWebsite # the subpath of your site, e.g. /blog
 LinkedIn_url: www.linkedin.com/in/michael-gardner-az 
 github_username:  PhiloTFarnsworth
 
