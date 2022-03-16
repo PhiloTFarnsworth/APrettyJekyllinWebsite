@@ -11,7 +11,6 @@ const navs = [
 // a constant here.
 const order = [
     "dummyIndex.html",
-    "contents.html",
     "why.html",
     "section.html",
     "data.html",
@@ -180,32 +179,43 @@ function populateNavLinks() {
             //For toggle nav, we want to swap the hidden and aria-hidden labels for all nav button on click, as well
             //as change the nav's aria-expanded to true.
             child.onclick = () => {
+                document.querySelector('#toggleNav').disabled = true
+                let offset = 0
                 if (child.dataset.active === 'true') {
                     // add offset to each item displayed
-                    let offset = 0
-                    Array.from(nav.children).forEach(kid => {
+                    
+                    Array.from(nav.children).forEach( async (kid) => {
+                        offset = offset + 20
                         if (kid.id !== 'toggleNav') {
                             const url = kid.id.replace('Nav', '.html')
-                            offset = offset - 20
+                            
                             if (url !== order[index]) {
                                 const doAnimation = async () => {
-                                    // Housekeeping
-                                    document.querySelector('#toggleNav').disabled = true
                                     kid.disabled = true
                                     const anim = kid.animate([
                                         { hidden: "false", transform: 'translateY(0px)', height: '1.5rem', overflow: 'hidden', margin: '0.1rem' },
-                                        { opacity: .3, transform: 'translateY(' + (offset / 2).toString() + 'px)', height: '.25rem', overflow: 'hidden', margin: '0rem', padding: '0' },
-                                        { hidden: "true", opacity: 0, transform: 'translateY(' + offset.toString() + 'px)', height: '0.1rem', overflow: 'hidden', padding: '0' }
+                                        { opacity: .3, transform: 'translateY(-' + (offset / 2).toString() + 'px)', height: '.25rem', overflow: 'hidden', margin: '0rem', padding: '0' },
+                                        { hidden: "true", opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)', height: '0.1rem', overflow: 'hidden', padding: '0' }
                                     ], {
                                         duration: 1000
                                     })
                                     await anim.finished
-                                    document.querySelector('#toggleNav').disabled = false
                                     kid.disabled = true
                                     kid.hidden = true
                                     kid.setAttribute('aria-hidden', true)
                                 }
-                                doAnimation()
+                                await doAnimation()
+                                    .catch(error => console.error(error))
+                            } else {
+                                const doAnimation = async () => {
+                                    const anim = kid.animate([
+                                        {transform: 'translateY(' + offset.toString() + 'px)' },
+                                        {transform: 'translateY(0px)'},
+                                        {transform: 'translateY(-'+ offset.toString() + 'px)'}
+                                    ])
+                                    await anim.finished
+                                }
+                                await doAnimation()
                                     .catch(error => console.error(error))
                             }
                         }
@@ -215,18 +225,18 @@ function populateNavLinks() {
                     nav.setAttribute('aria-expanded', false)
                 } else {
                     // if not active, show all buttons
-                    let offset = 0
-                    Array.from(nav.children).forEach(kid => {
+                    Array.from(nav.children).forEach(async (kid) => {
+                        offset = offset + 20
                         if (kid.id !== 'toggleNav') {
                             const url = kid.id.replace('Nav', '.html')
-                            offset = offset - 20
+                            
                             if (url !== order[index]) {
                                 const doAnimation = async () => {
                                     document.querySelector('#toggleNav').disabled = true
                                     kid.hidden = false
                                     const anim = kid.animate([
-                                        { hidden: "true", opacity: 0, transform: 'translateY(' + offset.toString() + 'px)' },
-                                        { opacity: .5, transform: 'translateY(' + (offset / 2).toString() + 'px)' },
+                                        { hidden: "true", opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)' },
+                                        { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
                                         { hidden: "false", opacity: 1, transform: 'translateY(0px)' }
                                     ], {
                                         duration: 1000
@@ -236,7 +246,18 @@ function populateNavLinks() {
                                     kid.setAttribute('aria-hidden', false)
                                     document.querySelector('#toggleNav').disabled = false
                                 }
-                                doAnimation()
+                                await doAnimation()
+                                    .catch(error => console.error(error))
+                            } else {
+                                const doAnimation = async () => {
+                                    const anim = kid.animate([
+                                        {transform: 'translateY(-' + offset.toString() + 'px)' },
+                                        {transform: 'translateY(0px)'},
+                                        {transform: 'translateY('+ offset.toString() + 'px)'}
+                                    ])
+                                    await anim.finished
+                                }
+                                await doAnimation()
                                     .catch(error => console.error(error))
                             }
                         }
@@ -245,6 +266,7 @@ function populateNavLinks() {
                     child.innerHTML = 'Collapse Site Navigation'
                     nav.setAttribute('aria-expanded', true)
                 }
+                document.querySelector('#toggleNav').disabled = false
             }
         } else {
             // Ok, so for every child besides toggleNav, take the ID, slice the Nav off the end, and then graft '.html'
