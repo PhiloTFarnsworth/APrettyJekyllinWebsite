@@ -25,6 +25,19 @@ so compatibility is a minor concern employing the details element.
     <p>You can use details when you don't think it's necessary for the reader to get all the details.</p>
 </details>
 
+<h3 id="progressHead">Progress</h3>
+
+Progress tags create progress bars, useful for showing numeric information that indicate progress. In other
+words, it is a gauge that is expected to fill one way (from zero to one).
+
+<label class="freeLabel" for="pageProgress">Page Progress:</label>
+<progress id="pageProgress" min="0" max="100" value="0">
+</progress>
+
+<p aria-atomic="true" aria-live="polite">The above bar measures your progress on the page, you are <span id="progressSpan">Not Supported - Javascript is Disabled </span>% through this page.</p>
+
+
+
 <h3 id="meterHead">Meter</h3>
 
 Meters can be used to represent gauges. For example, Lighthouse, an browser accessibility tool, grades this website:
@@ -60,18 +73,6 @@ Meters can be used to represent gauges. For example, Lighthouse, an browser acce
 </div>
 
 A Pretty Jekyllin' website also was graded highly for mobile screens as well.
-
-<h3 id="progressHead">Progress</h3>
-
-Progress tags create progress bars, useful for showing numeric information that indicate progress. In other
-words, it is a gauge that is expected to fill one way (from zero to one).
-
-<label class="freeLabel" for="pageProgress">Page Progress:</label>
-<progress id="pageProgress" min="0" max="100" value="0">
-</progress>
-
-<p aria-atomic="true" aria-live="polite">The above bar measures your progress on the page, you are <span id="progressSpan">Not Supported - Javascript is Disabled </span>% through this page.</p>
-
 
 <!-- 
     We hew pretty closely to the original implementation here.  We have to use ids for navigable headings, and I'm

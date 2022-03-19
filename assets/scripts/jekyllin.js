@@ -148,76 +148,9 @@ function populateNavLinks() {
     const nav = document.querySelector('#siteNav')
     Array.from(nav.children).forEach(child => {
         if (child.id === 'toggleNav') {
-            //For toggle nav, we want to swap the hidden and aria-hidden labels for all nav button on click, as well
-            //as change the nav's aria-expanded to true.
             child.onclick = async () => {
                 document.querySelector('#toggleNav').disabled = true
-                let offset = 20
-                if (child.dataset.active === 'true') {
-                    // add offset to each item displayed
-                    for (const kid of Array.from(nav.children)) {
-                        const unfurlContents = async (kid) => {
-                            if (kid.id !== 'toggleNav') {
-                                const url = kid.id.replace('Nav', '.html')
-                                if (url !== order[index]) {
-                                    const doAnimation = async () => {
-                                        kid.disabled = true
-                                        const anim = kid.animate([
-                                            { transform: 'translateY(0px)' },
-                                            { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
-                                            { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)' }
-                                        ], {
-                                            duration: 200
-                                        })
-                                        await anim.finished
-                                        kid.disabled = true
-                                        kid.hidden = true
-                                        kid.setAttribute('aria-hidden', true)
-                                    }
-                                    await doAnimation()
-                                        .catch(error => console.error(error))
-                                }
-                            }
-                        }
-                        await unfurlContents(kid)
-                    }
-                    child.dataset.active = false
-                    child.innerHTML = 'Expand Site Navigation'
-                    nav.setAttribute('aria-expanded', false)
-                } else {
-                    // if not active, show all buttons
-                    // add offset to each item displayed
-                    for (const kid of Array.from(nav.children)) {
-                        const furlContents = async (kid) => {
-                            if (kid.id !== 'toggleNav') {
-                                const url = kid.id.replace('Nav', '.html')
-                                if (url !== order[index]) {
-                                    const doAnimation = async () => {
-                                        document.querySelector('#toggleNav').disabled = true
-                                        kid.hidden = false
-                                        const anim = kid.animate([
-                                            { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)' },
-                                            { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
-                                            { opacity: 1, transform: 'translateY(0px)' }
-                                        ], {
-                                            duration: 200
-                                        })
-                                        await anim.finished
-                                        kid.disabled = false
-                                        kid.setAttribute('aria-hidden', false)
-                                        document.querySelector('#toggleNav').disabled = false
-                                    }
-                                    await doAnimation()
-                                        .catch(error => console.error(error))
-                                }
-                            }
-                        }
-                        await furlContents(kid)
-                    }
-                    child.dataset.active = true
-                    child.innerHTML = 'Collapse Site Navigation'
-                    nav.setAttribute('aria-expanded', true)
-                }
+                await navigationFurl(nav)
                 document.querySelector('#toggleNav').disabled = false
             }
         } else {
@@ -227,7 +160,7 @@ function populateNavLinks() {
             child.onclick = () => {
                 fetch(url, { method: 'GET' })
                     .then(response => response.text())
-                    .then(data => {
+                    .then(async (data) => {
                         document.querySelector('main').innerHTML = data
                         index = order.findIndex((u) => u === url)
                         //Re-enable the previous button pressed and disable this button
@@ -235,9 +168,22 @@ function populateNavLinks() {
                             kid.id !== 'toggleNav' ? kid.disabled = false : ''
                         })
                         child.disabled = true
-                        document.querySelector('#currentPage').innerHTML = index
-                        setFetchContent('#behind', order[index - 1])
-                        setFetchContent('#forward', order[index + 1])
+                        if (document.querySelector('#toggleNav').dataset.active === 'true') {
+                            await navigationFurl(nav)
+                        }
+                        document.querySelector('#currentPage').innerHTML = index + 1
+                        if (index > 0) {
+                            setFetchContent('#behind', order[index - 1])
+                            document.querySelector('#behind').disabled = false
+                        } else {
+                            document.querySelector('#behind').disabled = true
+                        }
+                        if (index < order.length - 1) {
+                            setFetchContent('#forward', order[index + 1])
+                            document.querySelector('#forward').disabled = false
+                        } else {
+                            document.querySelector('#forward').disabled = true
+                        }
                     })
                     .catch(error => console.error(error))
             }
@@ -245,9 +191,57 @@ function populateNavLinks() {
     })
 }
 
+// Navigation furl will alternatively expand or collapse the navigation menu.
+async function navigationFurl(nav) {
+    const offset = 20
+    for (const child of Array.from(nav.children)) {
+        const furl = async (child) => {
+            if (child.id !== 'toggleNav') {
+                const url = child.id.replace('Nav', '.html')
+                if (url !== order[index]) {
+                    const doAnimation = async () => {
+                        const prevDisabled = child.disabled
+                        child.disabled = true
+                        child.hidden = false
+                        let anim
+                        if (prevDisabled) {
+                            anim = child.animate([
+                                { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)' },
+                                { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
+                                { opacity: 1, transform: 'translateY(0px)' }
+                            ], {
+                                duration: 200
+                            })
+                        } else {
+                            anim = child.animate([
+                                { transform: 'translateY(0px)' },
+                                { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
+                                { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)'}
+                            ], {
+                                duration: 200
+                            })
+                        }
+                        await anim.finished
+                        child.disabled = !prevDisabled
+                        child.hidden = !prevDisabled
+                        child.setAttribute('aria-hidden', !prevDisabled)
+                    }
+                    await doAnimation()
+                        .catch(error => console.error(error))
+                }
+            } else {
+                child.dataset.active = child.dataset.active === 'true' ? 'false' : 'true'
+                child.innerHTML = child.dataset.active === 'true' ? 'Collapse Site Navigation' : 'Expand Site Navigation'
+                nav.setAttribute('aria-expanded', child.dataset.active === 'true')
+            }
+        }
+        await furl(child)
+    }
+} 
+
 
 document.addEventListener("DOMContentLoaded", () => {
-    setFetchContent('#forward', 'contents.html')
+    setFetchContent('#forward', order[1])
     populateNavLinks()
     document.querySelector('#about').onclick = () => {
         fetch("about.html", { method: "GET" })
@@ -264,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             index = 0
                             document.querySelector('#currentPage').innerHTML = index
                             document.querySelector('#behind').disabled = true
-                            setFetchContent('#forward', 'contents.html')
+                            setFetchContent('#forward', order[1])
                             document.querySelector('#forward').disabled = false
                         })
                 }
