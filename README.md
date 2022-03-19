@@ -14,5 +14,5 @@ Some other difficulties are related to the versioning of Jekyll offered with Git
 
 As a final thought, I also thought that Github Page's documentation could've been clearer, as the process of building a Jekyll website is somewhat convoluted and their documentation tries to cover several use cases in a single tutorial.  While Jekyll's documentation offers several good examples, the lack of dedicated reference area for information like generated metadata and properties of custom collections adds some difficulty.  Many of these properties are described within the documentation, but often in a way that makes quick reference difficult.  
 
-With all that said, this website sits before you today, so it wasn't all that bad.
-
+### Future Updates
+This project was intended to further explore publishing on Github Pages.  While our new features are working as intended, some code is not ideal or properly refactored.  Some of this is due to limitations of the Github Jekyll integration, and I look forward to addressing these concerns in the ultimate form of 'A Pretty (blank)in' Website', which will be built using the Hugo static site framework.  This page will updated when that site goes live.

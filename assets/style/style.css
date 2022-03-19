@@ -146,9 +146,9 @@ nav a:hover {
 }
 nav button {
   width: 100%;
-  height: 1.5rem;
+  height: 1.75rem;
   border-radius: 20px;
-  margin: 0.1rem;
+  margin: 0.25rem;
 }
 
 h1,
@@ -338,9 +338,9 @@ button {
 }
 
 button:hover {
-  animation: 1s ease-in 0s both hover-uolak2y;
+  animation: 1s ease-in 0s both hover-uaonrfj;
 }
-@keyframes hover-uolak2y {
+@keyframes hover-uaonrfj {
   to {
     background-color: rgba(218, 209, 180, 0.5);
   }
@@ -365,9 +365,9 @@ input:hover,
 select:hover,
 input:focus,
 select:focus {
-  animation: 1s ease-in 0s both hover-uolak3q;
+  animation: 1s ease-in 0s both hover-uaonrg9;
 }
-@keyframes hover-uolak3q {
+@keyframes hover-uaonrg9 {
   to {
     background-color: #eeeeee;
   }
