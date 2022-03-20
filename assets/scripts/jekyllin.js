@@ -29,111 +29,121 @@ let index = 0
 //placeholder for scroll event, so we aren't checking scroll values every page
 let scrollListener = null
 
-//We need some recursive foolishness, otherwise we load the footer each time.  Since a footer only has three
-//states (begin, middle, end), we don't really want to request a new footer when the majority of the time the 
-//we'll be in the middle state.  The current implementation works for the first load, but on further loads we 
-//also need to take the links relevant to the page loaded and inject them into the onclick event for the navigation
-//button.  Crack this nut tomorrow.
+//Conditional Scripts loads functions for elements which only appear on certain pages.  For the time being
+//we are returning our pages as text, so we can't really embed this information into a page with this implementation.
+//TODO: A better version of this.
+function conditionalScripts() {
+    //Add our scroll checker if page progress exists
+    if (document.querySelector('#pageProgress')) {
+        scrollListener = document.addEventListener("scroll", () => {
+            //Page Progress
+            const yPos = Math.round(window.scrollY)
+            const yMax = Math.round(document.body.scrollHeight)
+            const progress = Math.round((yPos / yMax) * 100)
+            document.querySelector('#pageProgress').value = progress
+            document.querySelector('#progressSpan').innerHTML = progress
+        })
+    } else {
+        if (scrollListener !== null) {
+            document.removeEventListener("scroll", scrollListener)
+            scrollListener = null
+        }
+    }
+    const form = document.querySelector("#exampleForm") 
+    //Form handling
+    if (form) {
+        form.onsubmit = () => {
+            const text = document.querySelector('#formText').value
+            const numeral = document.querySelector('#formNumber').value
+            const ranger = document.querySelector('#formRange').value
+            const time = document.querySelector('#formDate').value
+            const yes = document.querySelector('#formBoxYes').checked ? 'YES' : 'NO'
+            const no = document.querySelector('#formBoxNo').checked ? 'NO' : 'YES'
+            const selection = document.querySelector('#formSelect').value
+            document.querySelector('#formResults').innerHTML = "Text: " +
+                text + " Number: " + numeral + " Range: " + ranger + " Time: " +
+                time + " Boxes: " + yes + ' ' + no + " Selection: " + selection
+            return false
+        }
+        //Clear Results
+        document.querySelector('#clearResults').onclick = () => {
+            document.querySelector('#formResults').innerHTML = "Form Cleared"
+        }
+    }
+}
+
 function setFetchContent(selector, link) {
     // Now we add event listeners for both forward and back that will load the new information over the old one.
-    document.querySelector(selector).onclick = () => {
-        fetch(link, { method: "GET" })
-            .then(response => response.text())
-            .then(data => {
-                // Get new data, maybe add a transition here for less jarring effect
-                document.querySelector('main').innerHTML = data
-                //Update links.  how do?  Well, we need to know which selector it is, then check where we are in the index
-                //of our order constant and place link accordingly
-                switch (selector) {
-                    case '#forward':
-                        //update index forward
-                        index = index + 1
-                        document.querySelector('#currentPage').innerHTML = index
-                        //Check index, use the link from order to load forward.  If at end, disable(?) forward button.
-                        if (index < order.length - 1) {
-                            setFetchContent('#forward', order[index + 1])
-                            document.querySelector('#behind').disabled = false
-                            document.querySelector('#forward').disabled = false
-                        } else {
-                            document.querySelector('#forward').disabled = true
-                        }
-                        //backwards
-                        setFetchContent('#behind', order[index - 1])
-                        break;
-                    case '#behind':
-                        //see case '#forward'
-                        index = index - 1
-                        document.querySelector('#currentPage').innerHTML = index
-                        if (index > 0) {
-                            setFetchContent('#behind', order[index - 1])
-                            document.querySelector('#behind').disabled = false
-                            document.querySelector('#forward').disabled = false
-                        } else {
-                            document.querySelector('#behind').disabled = true
-                        }
+    document.querySelector(selector).onclick = async () => {
+        const fetchData = async () => {
+            const response = await fetch(link, { method: 'GET' })
+            if (!response.ok) {
+                document.querySelector('main').innerHTML = '<p>Error fetching your content, please refresh page<p>'
+                return null
+            }
+            const data = await response.text()
+            // Get new data, maybe add a transition here for less jarring effect
+            document.querySelector('main').innerHTML = data
+            //Update links.  how do?  Well, we need to know which selector it is, then check where we are in the index
+            //of our order constant and place link accordingly
+            switch (selector) {
+                case '#forward':
+                    //update index forward
+                    index = index + 1
+                    document.querySelector('#currentPage').innerHTML = index + 1
+                    //Check index, use the link from order to load forward.  If at end, disable(?) forward button.
+                    if (index < order.length - 1) {
                         setFetchContent('#forward', order[index + 1])
+                        document.querySelector('#behind').disabled = false
+                        document.querySelector('#forward').disabled = false
+                    } else {
+                        document.querySelector('#forward').disabled = true
+                    }
+                    //backwards
+                    setFetchContent('#behind', order[index - 1])
+                    break;
+                case '#behind':
+                    //see case '#forward'
+                    index = index - 1
+                    document.querySelector('#currentPage').innerHTML = index + 1
+                    if (index > 0) {
+                        setFetchContent('#behind', order[index - 1])
+                        document.querySelector('#behind').disabled = false
+                        document.querySelector('#forward').disabled = false
+                    } else {
+                        document.querySelector('#behind').disabled = true
+                    }
+                    setFetchContent('#forward', order[index + 1])
 
-                        break;
-                    default:
-                        // will update when new directions are added
-                        break;
-                }
-
-                const nav = document.querySelector('#siteNav')
-                Array.from(nav.children).forEach(child => {
-                    if (child.id !== 'toggleNav') {
-                        const url = child.id.replace('Nav', '.html')
-                        if (link === url) {
-                            //set button disabled and visible
-                            child.hidden = false
-                            child.setAttribute('aria-hidden', false)
-                            child.disabled = true
-                        } else {
-                            //set button hidden
-                            child.hidden = true
-                            child.setAttribute('aria-hidden', true)
-                            child.disabled = true
-                        }
-                    }
-                })
-                //Add our scroll checker if page progress exists
-                if (document.querySelector('#pageProgress')) {
-                    scrollListener = document.addEventListener("scroll", () => {
-                        //Page Progress
-                        const yPos = Math.round(window.scrollY)
-                        const yMax = Math.round(document.body.scrollHeight)
-                        const progress = Math.round((yPos / yMax) * 100)
-                        document.querySelector('#pageProgress').value = progress
-                        document.querySelector('#progressSpan').innerHTML = progress
-                    })
-                } else {
-                    if (scrollListener !== null) {
-                        document.removeEventListener("scroll", scrollListener)
-                        scrollListener = null
-                    }
-                }
-                //Form handling
-                if (document.querySelector("#exampleForm")) {
-                    document.querySelector("#exampleForm").onsubmit = () => {
-                        const text = document.querySelector('#formText').value
-                        const numeral = document.querySelector('#formNumber').value
-                        const ranger = document.querySelector('#formRange').value
-                        const time = document.querySelector('#formDate').value
-                        const yes = document.querySelector('#formBoxYes').checked ? 'YES' : 'NO'
-                        const no = document.querySelector('#formBoxNo').checked ? 'NO' : 'YES'
-                        const selection = document.querySelector('#formSelect').value
-                        document.querySelector('#formResults').innerHTML = "Text: " +
-                            text + " Number: " + numeral + " Range: " + ranger + " Time: " +
-                            time + " Boxes: " + yes + ' ' + no + " Selection: " + selection
-                        return false
-                    }
-                    //Clear Results
-                    document.querySelector('#clearResults').onclick = () => {
-                        document.querySelector('#formResults').innerHTML = "Form Cleared"
+                    break;
+                default:
+                    // will update when new directions are added
+                    break;
+            }
+            const nav = document.querySelector('#siteNav')
+            Array.from(nav.children).forEach(child => {
+                if (child.id !== 'toggleNav') {
+                    const url = child.id.replace('Nav', '.html')
+                    if (link === url) {
+                        //set button disabled and visible
+                        child.hidden = false
+                        child.setAttribute('aria-hidden', false)
+                        child.disabled = true
+                    } else {
+                        //set button hidden
+                        child.hidden = true
+                        child.setAttribute('aria-hidden', true)
+                        child.disabled = true
                     }
                 }
             })
-            .catch(error => console.error(error))
+        }
+        try {
+            await fetchData()
+        } catch(error) {
+            console.log(error)
+        }
+        conditionalScripts()
     }
 }
 
@@ -157,35 +167,45 @@ function populateNavLinks() {
             // Ok, so for every child besides toggleNav, take the ID, slice the Nav off the end, and then graft '.html'
             // to the end of it. Bind a fetch to that link and you're gravy
             const url = child.id.replace("Nav", ".html")
-            child.onclick = () => {
-                fetch(url, { method: 'GET' })
-                    .then(response => response.text())
-                    .then(async (data) => {
-                        document.querySelector('main').innerHTML = data
-                        index = order.findIndex((u) => u === url)
-                        //Re-enable the previous button pressed and disable this button
-                        Array.from(nav.children).forEach(kid => {
-                            kid.id !== 'toggleNav' ? kid.disabled = false : ''
-                        })
-                        child.disabled = true
-                        if (document.querySelector('#toggleNav').dataset.active === 'true') {
-                            await navigationFurl(nav)
-                        }
-                        document.querySelector('#currentPage').innerHTML = index + 1
-                        if (index > 0) {
-                            setFetchContent('#behind', order[index - 1])
-                            document.querySelector('#behind').disabled = false
-                        } else {
-                            document.querySelector('#behind').disabled = true
-                        }
-                        if (index < order.length - 1) {
-                            setFetchContent('#forward', order[index + 1])
-                            document.querySelector('#forward').disabled = false
-                        } else {
-                            document.querySelector('#forward').disabled = true
-                        }
+            child.onclick = async () => {
+                const fetchData = async () => {
+                    const response = await fetch(url, { method: 'GET' })
+                    if (!response.ok) {
+                        document.querySelector('main').innerHTML = '<p>Error fetching your content, please refresh page<p>'
+                        return null
+                    }
+                    const data = await response.text()
+
+                    document.querySelector('main').innerHTML = data
+                    index = order.findIndex((u) => u === url)
+                    //Re-enable the previous button pressed and disable this button
+                    Array.from(nav.children).forEach(kid => {
+                        kid.id !== 'toggleNav' ? kid.disabled = false : ''
                     })
-                    .catch(error => console.error(error))
+                    child.disabled = true
+                    if (document.querySelector('#toggleNav').dataset.active === 'true') {
+                        await navigationFurl(nav)
+                    }
+                    document.querySelector('#currentPage').innerHTML = index + 1
+                    if (index > 0) {
+                        setFetchContent('#behind', order[index - 1])
+                        document.querySelector('#behind').disabled = false
+                    } else {
+                        document.querySelector('#behind').disabled = true
+                    }
+                    if (index < order.length - 1) {
+                        setFetchContent('#forward', order[index + 1])
+                        document.querySelector('#forward').disabled = false
+                    } else {
+                        document.querySelector('#forward').disabled = true
+                    }
+                }
+                try {
+                    await fetchData()
+                } catch(error) {
+                    console.log(error)
+                }
+                conditionalScripts()
             }
         }
     })
@@ -216,7 +236,7 @@ async function navigationFurl(nav) {
                             anim = child.animate([
                                 { transform: 'translateY(0px)' },
                                 { opacity: .5, transform: 'translateY(-' + (offset / 2).toString() + 'px)' },
-                                { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)'}
+                                { opacity: 0, transform: 'translateY(-' + offset.toString() + 'px)' }
                             ], {
                                 duration: 200
                             })
@@ -237,33 +257,50 @@ async function navigationFurl(nav) {
         }
         await furl(child)
     }
-} 
+}
 
 
 document.addEventListener("DOMContentLoaded", () => {
     setFetchContent('#forward', order[1])
     populateNavLinks()
-    document.querySelector('#about').onclick = () => {
-        fetch("about.html", { method: "GET" })
-            .then(response => response.text())
-            .then(data => {
-                document.querySelector('main').innerHTML = data
-                document.querySelector('#currentPage').innerHTML = 'about'
-                document.querySelector('#forward').disabled = true
-                document.querySelector('#behind').onclick = () => {
-                    fetch(order[0], { method: "GET" })
-                        .then(response => response.text())
-                        .then(data => {
-                            document.querySelector('main').innerHTML = data
-                            index = 0
-                            document.querySelector('#currentPage').innerHTML = index
-                            document.querySelector('#behind').disabled = true
-                            setFetchContent('#forward', order[1])
-                            document.querySelector('#forward').disabled = false
-                        })
-                }
-                document.querySelector('#behind').disabled = false
-            })
-            .catch(error => console.error(error))
+    document.querySelector('#about').onclick = async () => {
+        const fetchData = async () => {
+            const response = await fetch("about.html", { method: "GET" })
+            if (!response.ok) {
+                document.querySelector('main').innerHTML = '<p>Error fetching your content, please refresh page<p>'
+                return null
+            }
+            const data = await response.text()
+            document.querySelector('main').innerHTML = data
+            document.querySelector('#currentPage').innerHTML = 'about'
+            document.querySelector('#forward').disabled = true
+            document.querySelector('#behind').onclick = () => {
+                fetch(order[0], { method: "GET" })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('main').innerHTML = data
+                        index = 0
+                        document.querySelector('#currentPage').innerHTML = index + 1
+                        document.querySelector('#behind').disabled = true
+                        setFetchContent('#forward', order[1])
+                        document.querySelector('#forward').disabled = false
+                    })
+            }
+            document.querySelector('#behind').disabled = false
+        }
+        try {
+            await fetchData()
+        } catch(error) {
+            console.log(error)
+        }
+        const nav = document.querySelector('#siteNav')
+        Array.from(nav.children).forEach(child => {
+            if (child.id !== 'toggleNav') {
+                //set button hidden
+                child.hidden = true
+                child.setAttribute('aria-hidden', true)
+                child.disabled = true
+            }
+        })
     }
 })
