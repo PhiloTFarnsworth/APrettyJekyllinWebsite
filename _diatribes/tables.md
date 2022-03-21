@@ -50,6 +50,12 @@ discretion.
             <td name="yes">YES
             <td name="yes">YES
             <td name="yes">YES
+        <tr>
+            <th scope="row"><a href="#">A Pretty Jekyllin' Website</a>
+            <td>~153 kB<sup>3</sup>
+            <td name="yes">YES
+            <td name="yes">YES
+            <td name="yes">YES
     <tfoot>
         <tr>
             <td colspan="5">
@@ -62,6 +68,12 @@ discretion.
                 <details>
                     <summary>2</summary>
                     <p>Excluding Youtube embed.</p>
+                </details>
+        <tr>
+            <td colspan="5">
+                <details>
+                    <summary>3</summary>
+                    <p>It's only ~111 kB if you stop reading now.</p>
                 </details>
 
 <!-- 
