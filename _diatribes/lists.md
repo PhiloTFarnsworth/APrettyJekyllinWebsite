@@ -12,7 +12,7 @@ aside:
         this
         can be convenient in cutting down paragraphs into more digestable content, they should be used
         judiciously. As a general rule of thumb, lists over five items should either be refactored into nested
-        lists, or refactored into separate lists.
+        or separate lists.
     </p>
     {% include aside.html %}
 </div>
@@ -27,7 +27,7 @@ paragraphs.
 
 * Superior <abbr title="Cascading Style Sheets">CSS</abbr>
     * Lightweight
-        * under 250 lines
+        * under 500 lines
     * Responsive
         * Broadly compatible 
     * Built with [Sass](https://sass-lang.com/)

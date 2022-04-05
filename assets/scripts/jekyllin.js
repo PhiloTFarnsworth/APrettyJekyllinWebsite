@@ -39,7 +39,7 @@ function conditionalScripts() {
             //Page Progress
             const yPos = Math.round(window.scrollY)
             const yMax = Math.round(document.body.scrollHeight)
-            const progress = Math.round((yPos / yMax) * 100)
+            const progress = Math.round(yPos / (yMax - window.innerHeight) * 100)
             document.querySelector('#pageProgress').value = progress
             document.querySelector('#progressSpan').innerHTML = progress
         })

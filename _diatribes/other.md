@@ -17,7 +17,7 @@ aside:
 <h3 id="detailHead">Details</h3>
 
 The details<sup>1</sup> tag is a handy way to implement footnotes and other non-critical data that doesn't
-merit an aside bubble. Even when used with <abbr>IE</abbr> the summary and content will still be available,
+merit an aside bubble. Even when used with <abbr>IE</abbr>, the summary and content will still be available,
 so compatibility is a minor concern employing the details element.
 
 <details>
